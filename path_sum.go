@@ -29,7 +29,9 @@ func hasPathSum(root *TreeNode, sum int) bool {
 func dfs(node *TreeNode, sum int) bool {
 	if node == nil {
 		return false
-    } else if node.Left == nil && node.Right == nil && sum - node.Val == 0 {
+    } 
+
+    if node.Left == nil && node.Right == nil && sum - node.Val == 0 {
         return true
     }
 
