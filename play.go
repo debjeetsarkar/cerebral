@@ -53,6 +53,10 @@ func main() {
 	})
 
 
+	s := string(24 + '0')
+	fmt.Println("string", s)
+
+
 	for i := 0; i < len(rangearray); i++ {
 		fmt.Println(rangearray[i][1])
 	}

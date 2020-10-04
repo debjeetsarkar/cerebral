@@ -15,33 +15,35 @@ package main
 import "fmt"
 
 
-func isSubPartPalindrome(s string, left_index, right_index int) bool {
-	for left_index < right_index {
-		if string(s[left_index]) != string(s[right_index]) {
+func isSubPartPalindrome(s string, left, right int) bool {
+	for left > right {
+		if string(s[left]) != string(s[right]) {
 			return false
-		} else {
-			left_index ++
-			right_index --
 		}
+
+		left++
+		right--
 	}
 
 	return true
 }
 
+
 func validPalindrome(s string) bool {
 	l := len(s)
-	if l == 0 || l ==1 || l ==2 {
+
+	if l == 0 || l == 1 || l == 2 {
 		return true
 	}
 
 	left, right := 0, l-1
 
-	for left < right {
+	for left > right {
 		if string(s[left]) == string(s[right]) {
-			left ++
-			right --
+			left++
+			right--
 		} else {
-			return isSubPartPalindrome(s, left, right -1) || isSubPartPalindrome(s, left + 1, right)
+			return isSubPartPalindrome(s, left + 1, right) || isSubPartPalindrome(s, left, right - 1)
 		}
 	}
 

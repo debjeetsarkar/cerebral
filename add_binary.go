@@ -29,12 +29,12 @@ func addBinary(a, b string) string {
 	}
 
 	carry := 0
+	sum := 0
 	i, j := la - 1, lb -1
 	result := ""
 
 	for i >= 0 || j >=0 {
-		sum := 0
-
+		sum = 0
 		if i >= 0 {
 			sum += int(byte(a[i]) - '0')
 			i--
@@ -47,12 +47,12 @@ func addBinary(a, b string) string {
 
 		sum += carry
 		
-		result = strconv.Itoa(sum % 2) + result
+		result = string((sum % 2) + '0') + result
 		carry = sum / 2
 	}
 
 	if carry > 0 {
-		result = strconv.Itoa(carry) + result
+		result = string(carry + '0') + result
 	}
 
 	return result

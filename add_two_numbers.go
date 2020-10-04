@@ -17,15 +17,18 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	carry := 0
 	result := &ListNode{}
 	head := result
+	val1 := 0
+	val2 := 0
 
 	for l1 != nil || l2 != nil {
-		val1 := 0
-		val2 := 0
-		if l1 != nil && l1.Val != 0 {
+		val1 = 0
+		val2 = 0
+
+		if l1 != nil {
 			val1 = l1.Val
 		}
 
-		if l2 != nil && l2.Val != 0 {
+		if l2 != nil {
 			val2 = l2.Val
 		}
 
