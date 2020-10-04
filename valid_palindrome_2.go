@@ -16,7 +16,7 @@ import "fmt"
 
 
 func isSubPartPalindrome(s string, left, right int) bool {
-	for left > right {
+	for left < right {
 		if string(s[left]) != string(s[right]) {
 			return false
 		}
@@ -38,7 +38,7 @@ func validPalindrome(s string) bool {
 
 	left, right := 0, l-1
 
-	for left > right {
+	for left < right {
 		if string(s[left]) == string(s[right]) {
 			left++
 			right--
