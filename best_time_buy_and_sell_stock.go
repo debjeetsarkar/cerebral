@@ -36,24 +36,26 @@ func max(a, b int) int {
 }
 
 func maxProfit(prices []int) int {
-	maxProfit := 0
-	l := len(prices)
+maxProfit := 0
 
-	if l == 0 {
-		return maxProfit
-	}
+l := len(prices)
 
-	minPriceDay := 0	
-	for day, price := range prices {
-		minPrice := prices[minPriceDay]
-		if price < minPrice {
-			minPriceDay = day
-		} else if price >= minPrice {
-			maxProfit = max(maxProfit, price - prices[minPriceDay])
-		}
-	}
-
+if l == 0  || l == 1 {
 	return maxProfit
+}
+
+minPriceDay := 0
+
+for day, price := range prices {
+	if price < prices[minPriceDay] {
+		minPriceDay = day
+	} else if price >= prices[minPriceDay] {
+		maxProfit = max(maxProfit, price - prices[minPriceDay])
+	}
+}
+
+return maxProfit
+
 }
 
 func main() {

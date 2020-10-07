@@ -45,7 +45,7 @@ func (s *Stack) pop() (*TreeNode) {
 }
 
 func (s *Stack) isEmpty() bool {
-	return len(*s) > 0
+	return len(*s) < 1
 }
 
 
