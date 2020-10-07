@@ -21,15 +21,10 @@ Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10]
 **/
 
 
+
 package main
 
-func isLeftOfCurrentInterval(intervalA []int, intervalB []int) bool {
-	return intervalA[1] < intervalB[0]
-}
-
-func isIntervalMerging(intervalA []int, intervalB []int) bool {
-	return intervalA[1] >= intervalB[0]
-}
+import "fmt"
 
 func max(a, b int) int {
 	if a >= b {
@@ -46,26 +41,42 @@ func min(a, b int) int {
 }
 
 
-func insert(intervals [][]int, newInterval []int) [][]int {
+func isLeftOf(a, b []int) bool {
+	return a[1] < b[0]
+}
 
-	if len(intervals) == 0 {
+
+func isMergeable(a, b []int) bool{
+	return a[1] >= b[0]
+}
+
+func insert(intervals [][]int, newInterval []int) [][]int {
+	l := len(intervals)
+
+	lNewInterval := len(newInterval)
+
+	if l == 0 && lNewInterval > 0 {
 		return [][]int{newInterval}
 	}
-    
-	currentInterval := newInterval
-    result := [][]int{}
 
-	for _,interval := range intervals {
-		if isLeftOfCurrentInterval(interval, currentInterval) {
+	result := [][]int{}
+
+	currentInterval := newInterval
+
+	for _, interval := range intervals {
+		if isLeftOf(interval, currentInterval) {          
 			result = append(result, interval)
-		} else if isIntervalMerging(currentInterval,interval) {
-            currentInterval[0] = min(currentInterval[0], interval[0])
-			currentInterval[1] = max(currentInterval[1], interval[1])
+		} else if isMergeable(currentInterval,interval) {
+			currentInterval[1] = max(interval[1], currentInterval[1])
+			currentInterval[0] = min(interval[0], currentInterval[0])
+           
 		} else {
 			result = append(result, currentInterval)
 			currentInterval = interval
 		}
 	}
     
-    return append(result, currentInterval)
+    result = append(result, currentInterval)
+    
+	return result
 }
