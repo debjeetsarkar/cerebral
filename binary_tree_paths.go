@@ -26,6 +26,12 @@ Approach
 4. Return result
 **/
 
+package main
+
+import (
+	"strconv"
+)
+
 type TreeNode struct {
 	Val int
 	Left *TreeNode
@@ -33,33 +39,34 @@ type TreeNode struct {
 }
 
 func binaryTreePaths(root *TreeNode) []string {
-	result := []string{}
+	result := []string
 
 	if root == nil {
 		return result
 	}
-	dfs(root, "", result)
+
+	dfs(root, "", &result)
 
 	return result
 }
 
 
-
-func dfs(node *TreeNode, path string, result []string) {
+func dfs(node *TreeNode, path string, result *[]string) {
 	path += strconv.Itoa(node.Val)
 
 	if node.Left == nil && node.Right == nil {
-		return
+		*result = append(*result, path)
 	}
 
 	if node.Left != nil {
-		dfs(node.Left, path + "->", result)
+		dfs(node.Left, path + "->" , result)
 	}
 
 	if node.Right != nil {
 		dfs(node.Right, path + "->", result)
 	}
 }
+
 
 
 

@@ -17,13 +17,12 @@ Input:
 [3, 2]
 
 
+[0, 0, 0, 0, 0, 2, 3, 1]
+
+
 [4 4]
 Output:
  */
-func Abs(a int) int{
-	if a < 0  { return -1 * a }
-	return a
-}
 
 func findDuplicates(nums []int) []int {
  len := len(nums)
@@ -31,17 +30,17 @@ func findDuplicates(nums []int) []int {
  if len == 0 { return result }
  if len == 1 { return result }
 
-for index := 0; index < len; index++ {
-	if Abs(nums[index]) < len {
-		if nums[Abs(nums[index])] > 0 {
-			nums[Abs(nums[index])] = -1 * nums[Abs(nums[index])]
-		} else {
-			result = append(result, nums[Abs(nums[index])])
-		}
+for index, val := range nums {
+	nums[val] = 0
+}
+
+for index, val := range nums {
+	if val != 0 {
+		result = append(result, val)
 	}
 }
- return result
-}
+
+return result
 
 func main () {
 	inp := []int{4,3,2,7,8,2,3,1}

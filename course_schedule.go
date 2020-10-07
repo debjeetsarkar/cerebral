@@ -20,7 +20,7 @@ Explanation: There are a total of 2 courses to take.
 
 type Queue []int
 
-func (q *Queue) push(val) {
+func (q *Queue) push(val int) {
 	(*q) = append((*q), val)
 }
 
@@ -36,55 +36,54 @@ func (q *Queue) isNotEmpty() bool {
 
 func canFinish(numCourses int, prerequisites [][]int) bool {
 
-	// Create adjacency list and also populate indegree array.
-	adjList := make(map[int][]int)
-	indegreeArray := [numCourses]int{}
-	for _, prerequisite := range prerequisites {
-		adjListEntry, ok := adjList[prerequisite[1]]
+    // Create the adjacency map
+
+	adjMap := make(map[int][]int)
+    indegreeArray := make([]int, numCourses)
+
+	for _,prerequisite := range prerequisites {
+		adjMapVal, ok := adjMap[prerequisite[1]]
 		if ok {
-			adjListEntry = append(adjListEntry, prerequisite[0])
+			adjMap[prerequisite[1]] = append(adjMapVal, prerequisite[0])
 		} else {
-			list := []int{prerequisite[0]}
-			adjList[prerequisite[1]] = list
+            list := []int{prerequisite[0]}
+			adjMap[prerequisite[1]] = list
 		}
+		// Fill the indegree array
 		indegreeArray[prerequisite[0]]++
 	}
 
-	// Go through the indegree array and fill the Queue with all whose indegree value is zero and initialise count as 0.
-	for node, indegreeVal := range indegreeArray {
+
+	// Topological sort queue
+	q := &Queue{}
+
+	// Loop over the indegree Array and for every zero value, push to the queue
+	for course, indegreeVal := range indegreeArray {
 		if indegreeVal == 0 {
-			queue.push(node)
+			q.push(course)
 		}
 	}
 
 	count := 0
 
-	/** Iterate through the queue while its not empty:
-		- Pop an element. 
-		- Every time an element is popped, check if the value is 0 in the indegree array, if yes increase count
-		- Check if popped is present in the adjacency list
-			- If no, continue
-			- If yes, get the neighbours
-				- For every neighbour, decrease the value in indegree. 
-				- If the value of the neighbour in indegree decreses to 0, add to queue
-	**/
-	for queue.isNotEmpty() {
-		poll := queue.poll()
-		if indegreeArray[poll] == 0 {
+	for q.isNotEmpty() {
+		pop := q.poll()
+
+		if indegreeArray[pop] == 0 {
 			count++
 		}
 
-		neighbours, ok := adjList[poll]
-		if !ok {
-			continue
-		} else {
-			for _, neighbour := range neighbours {
+		// check for adjacent ones and reduce indegree value
+
+		adjMapVal, ok := adjMap[pop]
+		if ok {
+			for _, neighbour := range adjMapVal {
 				indegreeArray[neighbour]--
 				if indegreeArray[neighbour] == 0 {
-					queue.push(neighbour)
+					q.push(neighbour)
 				}
 			}
-		}
+        }
 	}
 
 	return count == numCourses

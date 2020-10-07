@@ -29,22 +29,22 @@ mid = 4/2 = 2
 **/
 
 func firstBadVersion(n int) int {
-	if n == 0 {
-		return 0
-	}
-
-	low := 1
-    high := n
-    mid := (low + high) / 2
-
-    for low < high {
-        mid = (low + high)/2
-    	if isBadVersion(mid) {
-    		high = mid 
-    	} else {
-    		low = mid + 1 
-    	} 
+    if n == 0 {
+        return 0
     }
 
-	return low
+    low := 1
+    high := n
+    mid := low + (high - low) / 2
+
+    for low < high {
+        mid = low + (high - low) / 2
+        if isBadVersion(mid) {
+            high = mid
+        } else {
+            low = mid + 1
+        }
+    }
+
+    return low
 }
