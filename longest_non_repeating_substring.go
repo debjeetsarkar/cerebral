@@ -25,38 +25,37 @@ Explanation: The answer is "wke", with the length of 3.
 Input: "p w w k e w"
 */
 
-func lengthOfLongestSubstring( str string) int{
-	length := len(str)
-	if length == 0 { return 0 }
-	if length ==1 { return 1 }
-	maxLength := 0
-	start := 0
-	slider:= 0
-	visitedMap := make(map[string]int)
-	for j,char := range str {
-		foundIndex,ok := visitedMap[string(char)]
-		if !ok {
-			if maxLength < (j-start) + 1 {
-				maxLength++
-			}
-		} else {
-			if foundIndex >= start {
-				start = foundIndex + 1
-			} else {
-				if maxLength < (j-start) + 1 {
-					maxLength++
-				}
-			}
-		}
-		visitedMap[string(char)] = j
-		slider = j
-	}
-	if maxLength < (slider-start) + 1 {
-		maxLength++
-	}
-	return maxLength
+func max(a, b int) int {
+    if a > b {
+        return a
+    }
+    return b
 }
 
+func lengthOfLongestSubstring(s string) int {
+    l := len(s)
+    visitedMap := make(map[string]int)
+    maxLength := 0
+    start := 0
+    for index, char := range s {
+        foundIndex, ok := visitedMap[string(char)]
+        if !ok {
+            maxLength = max(maxLength, index - start + 1)
+        } else {
+            if foundIndex >= start {
+                start = foundIndex + 1
+            } else {
+                maxLength = max(maxLength, index - start + 1)
+            }
+        }
+        
+        visitedMap[string(char)] = index
+    }
+    
+    maxLength = max(maxLength, l - start)
+    
+    return maxLength
+}
 func main () {
 	fmt.Println(lengthOfLongestSubstring("abba"))
 }
