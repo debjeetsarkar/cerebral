@@ -37,13 +37,10 @@ Use BFS
 
 package main
 
+import "fmt"
+
 type Queue []*TreeNode
 
- type TreeNode struct {
-      Val int
-      Left *ListNode
-      Right *ListNode
- }
 
 func (q *Queue) poll() *TreeNode {
 	popped := (*q)[0]
@@ -66,55 +63,49 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 	}
 
 	bfsQueue := &Queue{}
-	visitedMap := make(map[*TreeNode]*TreeNode)
-	parentMap := make(map[*TreeNode]int)
-	found := 0
-	ancestors := make(map[*TreeNode]*TreeNode)
-
 	bfsQueue.push(root)
-	parentMap[root] = nil
+	parentMap := make(map[*TreeNode]*TreeNode)
+	found := 0
 
 	for !bfsQueue.isEmpty() && found < 2 {
 		popped := bfsQueue.poll()
 
-		v, ok := visitedMap[popped]
-		if !ok {
-			if popped == p || popped == q {
-				found++
-			}
-
-			visitedMap[popped] = 1
+		if popped.Val == p.Val || popped.Val == q.Val {
+			found++
 		}
 
 		if popped.Left != nil {
-			_, ok := visitedMap[popped.Left]
-			if !ok {
-				bfsQueue.push(popped.Left)
-				parentMap[popped.Left] = popped
-			}
+			parentMap[popped.Left] = popped
+            bfsQueue.push(popped.Left)
 		}
 
 		if popped.Right != nil {
-			_, ok := visitedMap[popped.Right]
-			if !ok {
-				bfsQueue.push(popped.Right)
-				parentMap[popped.Right] = popped
-			}
+			parentMap[popped.Right] = popped
+            bfsQueue.push(popped.Right)
 		}
 	}
 
+	ancestorMap := make(map[*TreeNode]*TreeNode)
+    
+    
 	for p != nil {
-		ancestors[p] = parentMap[p]
-		p = parentMap[p]		
+		ancestorMap[p] = parentMap[p]
+		p = parentMap[p]
 	}
-
+    
+    
 	for q != nil {
-		_, ok := ancestors[q]
+		_, ok := ancestorMap[q]
 		if ok {
 			return q
 		}
-		q = parentMap[q] 
+
+		q = parentMap[q]
 	}
 
 	return nil
 }
+
+
+
+

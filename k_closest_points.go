@@ -66,28 +66,27 @@ func (p *PQueue) Pop() interface{} {
 
 
 func Kclosest(points [][]int, k int) [][]int {
+	priorityQueue := &PQueue{}
 
-	pq := PQueue{}
+	for index, point := points {
+		heap.Push(priorityQueue, &Point{
+			distance : (point[0] * point[0] + point[1] +point[1])
+			value: point
+			index: index,
+		})
 
-	for i, point := range points {
-		 p := &Point{
-		 	distance : (point[0] * point[0]) + (point[1] * point[1]),
-		 	value: point,
-		 	index : i,
-		 }
-		 
-		 heap.Push(&pq, p)
-		 if pq.Len() > k {
-		 	heap.Pop(&pq)
-		 }
+		if heap.Len() > k {
+			heap.Pop(priorityQueue)
+		}
 	}
 
-	res := make([][]int, k)
-
-	for i := 0; i < len(pq); i++ {
-		res[i] = pq[i].value
+	result := [][]int{}
+	
+	for i := 0; i < k; i++ {
+		result = append(result, priorityQueue[i])
 	}
-	return res
+
+	return result
 }
 
 
