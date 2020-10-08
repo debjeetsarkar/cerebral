@@ -6,7 +6,7 @@ import "fmt"
 Given a string, find the length of the longest substring without repeating characters.
 
 Example 1:
-Input: "a b c a c b b"
+Input: "abcadfg"
 Output: 3
 Explanation: The answer is "abc", with the length of 3.
 Example 2:
@@ -22,7 +22,7 @@ Explanation: The answer is "wke", with the length of 3.
              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
 
 
-Input: "p w w k e w"
+Input: "p w w k e w p"
 */
 
 func max(a, b int) int {
@@ -57,5 +57,5 @@ func lengthOfLongestSubstring(s string) int {
     return maxLength
 }
 func main () {
-	fmt.Println(lengthOfLongestSubstring("abba"))
+	fmt.Println(lengthOfLongestSubstring("abcadfg"))
 }

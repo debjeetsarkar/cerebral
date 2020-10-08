@@ -16,34 +16,32 @@ Output: 6
 
 import "math"
 
-
-func max(a,b int) int {
-	if a >= b {
-		return a
-	}
-
-	return b
+func max(x, y int) int {
+    if x > y {
+        return x
+    }
+    return y
 }
 
-func dfs(node *TreeNode, answer *int) int{
-	if node == nil {
-		return 0
-	}
-
-	left := dfs(node.Left)
-	right := dfs(node.Right)
-	answer = max(answer, left + right + node.Val)
-	return max(0, node.Val + max(left, right))
+func maxSumGoingDown(node *TreeNode, ans *int) int{
+    if node == nil {
+        return 0
+    }
+    
+    left := maxSumGoingDown(node.Left, ans)
+    right := maxSumGoingDown(node.Right, ans)
+    
+    *ans  = max(*ans, node.Val + left + right)
+    
+    return max(0, node.Val + max(left,right))
 }
-
 
 func maxPathSum(root *TreeNode) int {
-
-	answer := math.MinInt32
-	if root == nil {
-		return answer
-	}
-
-	dfs(root, &answer)
-	return answer
+    ans := math.MinInt32
+    if root == nil {
+        return 0
+    }
+    
+    maxSumGoingDown(root, &ans)
+    return ans
 }
