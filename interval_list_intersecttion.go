@@ -19,7 +19,7 @@ package main
 
 import "fmt"
 
-ffunc max(x, y int) int {
+func max(x, y int) int {
 	if x >= y {
 		return x
 	}
@@ -35,29 +35,18 @@ func min(x, y int) int {
 
 
 func intervalIntersection(A, B [][]int) [][]int {
-	al := len(A)
-	bl := len(B)
-
+	la := len(A)
+	lb := len(B)
 	result := [][]int{}
 
-	if al == 0 || bl == 0 {
+	if la == 0 || lb == 0{
 		return result
 	}
 
-	pointerA := 0
-	pointerB := 0
+	pointerA, pointerB := 0, 0
 
-	for pointerA < al && pointerB < bl {
-        
-        // if A[pointerA][0] > B[pointerB][1] {
-        //     pointerB++
-        //     continue
-        // } else if A[pointerA][1] < B[pointerB][0] {
-        //     pointerA++
-        //     continue
-        // }
+	for pointerA < la && pointerB < lb {
 		startingInterval, endingInterval := max(A[pointerA][0], B[pointerB][0]), min(A[pointerA][1], B[pointerB][1])
-
 		if startingInterval <= endingInterval {
 			result = append(result, []int{startingInterval, endingInterval})
 		}
@@ -71,7 +60,6 @@ func intervalIntersection(A, B [][]int) [][]int {
 
 	return result
 }
-
 
 func main() {
 	fmt.Println(intervalIntersection())
