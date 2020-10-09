@@ -40,85 +40,64 @@ import (
 )
 
 
-type Stack []string
+type stack []string
 
-func (s *Stack) Push(str string) {
-	*s = append(*s, str)
+func (s *stack) push(str string) {
+    (*s) = append(*s, str)
 }
 
-func (s *Stack) Pop() string{
-	l := len(*s)
-	if l ==0 {
-		return ""
-	}
-	p := (*s)[l -1]
-	*s = (*s)[:l -1]
-
-	return p
+func (s *stack) pop() string{
+    if len(*s) == 0 {
+        return ""
+    }
+    
+    popped := (*s)[len(*s)-1]
+    (*s) = (*s)[0:len(*s)-1]
+    return popped
 }
-
-func (s *Stack) Seek() string {
-	if len(*s) == 0{
-		return ""
-	}
-
-	return (*s)[len(*s) -1]
-}
-
-
 
 func minRemoveToMakeValid(s string) string {
-	l := len(s)
-	if l ==0 {
-		return ""
-	}
-
-
-	balance := 0
-	refStack := &Stack{}
-
-	for i :=0 ; i<l; i ++ {
-		char := string(s[i])
-		if char == "(" {
-			balance++
-			refStack.Push(char)
-		} else if char == ")" && balance > 0 {
-			balance--
-			refStack.Push(char)
-		} else if char != ")" && char != "("{
-			refStack.Push(char)
-		}
-	}
-
-	balance = 0
-
-	len := len(*refStack)
-
-	resultStr := ""
-
-	fmt.Println(refStack)
-
-	for len >0 {
-		popped := refStack.Pop()
-
-		if popped == ")" {
-			balance--
-			resultStr = popped + resultStr
-		} else if popped == "(" && balance < 0{
-			balance++
-			resultStr = popped + resultStr
-		} else if popped != ")" && popped != "("{
-			resultStr = popped +resultStr
-		}
-
-		len--
-
-	}
-
-	return resultStr
-
+    l := len(s)
+    result := ""
+    
+    if l == 0 {
+        return result
+    }
+    
+    stk := &stack{}
+    balance := 0
+    
+    for i := 0; i < l; i ++ {
+        if string(s[i]) == "(" {
+            stk.push(string(s[i]))
+            balance++
+        } else if string(s[i]) == ")" && balance > 0 {
+            stk.push(string(s[i]))
+            balance --
+        } else if string(s[i]) != ")" && string(s[i]) != "("{
+            stk.push(string(s[i]))
+        }
+    }
+    
+    balance = 0
+    
+    for l > 0 {
+        popped := stk.pop()
+        if popped == ")" {
+            result = popped + result
+            balance--
+        } else if popped == "(" && balance < 0 {
+            result = popped + result
+            balance++
+        } else if popped != "(" && popped != ")"{
+            result = popped + result
+        }
+        
+        l--;
+    }
+    
+    return result
 }
-
 
 
 func main() {

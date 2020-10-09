@@ -71,7 +71,7 @@ func minWindow(s, t string) string {
 			value, ok := window[startChar]
 			if ok {
 				window[startChar] = value + 1
-				if value + 1 > 0  {
+				if window[startChar] > 0  {
 					if slider - start + 1 <= min_window {
 						min_window = slider - start + 1
 						result = s[start:slider + 1]

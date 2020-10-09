@@ -17,44 +17,42 @@ Explanation: Because the path 1→3→1→1→1 minimizes the sum.
 
 **/
 
-
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-
-	return b
+func min(x, y int) int {
+    if x < y {
+        return x
+    }
+    
+    return y
 }
 
 func minPathSum(grid [][]int) int {
-	l := len(grid)
-
-	if l == 0 {
-		return 0
-	}
-
-	h := l
-	w := len(grid[0])
-
-	dp := make([][]int, h)
-
-	for i := range grid {
-		dp[i] = make([]int, w)
-	}
-
-	for row := 0 ; row < h; row ++ {
-		for column := 0; column < w; column ++ {
-			if row == 0 && column == 0 {
-				dp[row][column] = grid[row][column]
-			} else if row == 0 {
-				dp[row][column] = grid[row][column] + dp[row][column-1]
-			} else if column == 0 {
-				dp[row][column] = grid[row][column] + dp[row-1][column])
-			} else {
-				dp[row][column] = grid[row][column] + min(dp[row][column-1], dp[row-1][column])	
-			}
-		}	
-	}
-
-	return dp[h-1][w-1] 
+    l := len(grid)
+    if l == 0  {
+        return 0
+    }
+    
+    rows := l
+    columns := len(grid[0])
+    
+    dp := make([][]int, rows)
+    
+    for i := range grid {
+        dp[i] = make([]int, columns)
+    }
+    
+    for i := 0; i < rows; i++ {
+        for j := 0; j < columns; j++ {
+            if i == 0 && j == 0 {
+                dp[i][j] = grid[i][j]
+            } else if i == 0 {
+                dp[i][j] = grid[i][j] + dp[i][j-1]
+            } else if j == 0 {
+                dp[i][j] = grid[i][j] + dp[i-1][j]
+            } else {
+                dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1])
+            }
+        }
+    }
+    
+    return dp[rows-1][columns-1]
 }
