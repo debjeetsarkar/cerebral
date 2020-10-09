@@ -18,22 +18,22 @@ return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 
 **/
 
-func hasPathSum(root *TreeNode, sum int) bool {
-	if root == nil {
-		return false
-	}
-	return dfs(root, sum)
-}
-
-
 func dfs(node *TreeNode, sum int) bool {
-	if node == nil {
-		return false
-    } 
-
+    if node == nil {
+        return false
+    }
+    
     if node.Left == nil && node.Right == nil && sum - node.Val == 0 {
         return true
     }
-
+    
     return dfs(node.Left, sum - node.Val) || dfs(node.Right, sum - node.Val)
+}
+
+func hasPathSum(root *TreeNode, sum int) bool {
+    if root == nil {
+        return false
+    }   
+    
+    return dfs(root, sum)
 }
