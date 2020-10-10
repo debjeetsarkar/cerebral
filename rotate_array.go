@@ -9,8 +9,8 @@ Could you do it in-place with O(1) extra space?
 
 Example 1:
 
-Input: nums = [1,2,3,4,5,6,7], k = 3
 Output: [5,6,7,1,2,3,4]
+
 Explanation:
 rotate 1 steps to the right: [7,1,2,3,4,5,6]
 rotate 2 steps to the right: [6,7,1,2,3,4,5]
@@ -32,20 +32,29 @@ package main
 
 import "fmt"
 
+
+func reverse(arr []int, start, end int) {
+	for start < end {
+		temp := arr[start]
+		arr[start] = arr[end]
+		arr[end] = temp
+
+		start++
+		end--
+	}
+}
+
 func rotateArray(arr []int, k int) {
 	l := len(arr)
-	if l == 0  || l==1{
+
+	if l == 0 {
 		return
 	}
 
-	for k > 0 {
-		temp := arr[l-1]
-		for i := l-1; i >0; i-- {
-			arr[i] = arr[i-1]
-		}
-		arr[0] = temp
-		k--
-	}
+	k = k % len(arr)
+	reverse(arr, 0, l-1)
+	reverse(arr, 0, k-1)
+	reverse(arr, k, l-1)
 }
 
 

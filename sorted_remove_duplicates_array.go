@@ -42,32 +42,21 @@ import (
 	"fmt"
 )
 
-func removeDup(arr []int) int {
-	l := len(arr)
-
-	if l == 0 {
-		return 0
-	}
-
-	if l == 1 {
-		return 1
-	}
-
-	if l == 2 && arr[0] != arr[1] {
-		return 2
-	}
-
-	start := 0 
-	for i := 1 ; i < l; i ++ {
-		if arr[start]  != arr[i] {
-			start ++
-			arr[start] = arr[i]
-		}
-
-		fmt.Println(arr)
-	} 
-
-	return start + 1
+func removeDuplicates(arr []int) int {
+  l := len(arr)
+  if l ==0 {
+    return l
+  }
+  
+  start := 0
+  for i:=1; i <l; i++ {
+    if arr[start] != arr[i] {
+      arr[start+1] = arr[i]
+      start++
+    }
+  }
+  
+  return start +1
 }
 
 func main () {
