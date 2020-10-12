@@ -50,10 +50,8 @@ func moveZeroes(nums []int)  {
         if nums[start] == 0 {
             nums[start] = nums[i]
             nums [i] = 0
-            start++
-        } else {
-            start++
-        }
+        } 
+        start++
     }
 }
 

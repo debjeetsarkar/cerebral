@@ -81,7 +81,7 @@ func leastInterval(tasks []byte, n int) int {
     **/
     result := 0
     for !pq.isEmpty() {
-    	processingList := []int
+    	processingList := []int{}
     	for i :=0; i < n+1; i++ {
     		if !pq.isEmpty() {
     			processingList = append(processingList, (heap.Pop(&pq)).(int))

@@ -38,7 +38,7 @@ initialise right_product = 1
 
 right array generation
 	* Iterate from r -> l starting from l-1, for every element, its arr[j] * left_product
-	* push to left array
+	* push to right array
 
 **/
 
