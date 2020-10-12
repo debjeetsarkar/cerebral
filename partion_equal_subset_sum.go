@@ -14,7 +14,7 @@ Input: nums = [1,2,3,5]
 Output: false
 Explanation: The array cannot be partitioned into equal sum subsets.
 
-
+		
 Approach:
 
 Edge cases:
@@ -35,16 +35,16 @@ Initialise the matrix with column = 0 as true and rest as false
 Apply knapsack algorithm by iterating over values over rows over columns
 Return the last value of the knapsack matrix, that determines if the targetSum is possible or not to be acheived.
 
-**/
-
-func canPartion(nums []int) bool {
+**/					
+			
+func canPartion(nums []int) bool {		
   l := len(nums)
   if l == 0 {
-    return false
-  }
+    return false						
+  }	
   
   totalSum := 0
-  for i:= 0; i< l; i++ {
+  for i:= 0; i< l; i++ {	
     totalSum += nums[i]
   }
  
