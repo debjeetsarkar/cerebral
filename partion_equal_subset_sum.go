@@ -63,8 +63,6 @@ func canPartion(nums []int) bool {
     for j = 0; j< len(knapsack[0]); j++ {
       if j == 0 {
         knapsack[i][j] = true
-      } else {
-        knapsack[i][j] = false
       }
     }
   }
