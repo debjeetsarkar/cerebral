@@ -15,43 +15,21 @@ Output: "bb"
 **/
 
 
-func isPalindrome(s string, left, right int) bool {
-	for left < right {
-		if string(s[left]) != string(s[right]) {
-			return false
-		}
-		left++
-		right--
+func reverse(s string) string {
+	reversed := ""
+	for _, val := range s {
+		reversed =  string(val) + reversed
 	}
 
-	return true
+	return reversed
 }
 
+func longestPalindrome(s string) string {
+    l := len(s)
 
-func findPalindrome(s string) string {
-	left := 0
-	right := len(s)-1
-	maxPalindromeLength := 0
-	result := ""
-	for left < right {
-		if isPalindrome(s, left, right) {
-			if (right - left) > maxPalindromeLength {
-				result = s[left, right+1]
-			}
-		} else if isPalindrome(s, left+1, right) {
-			if (right - left + 1) > maxPalindromeLength {
-				result = s[left+1, right+1]
-			}
-		} else if isPalindrome(s, left, right-1) {
-			if (right - 1 - left) > maxPalindromeLength {
-				result = s[left, right]
-			}
-		}
+    result := ""
 
-		left++
-		right--
-
-	}
-
-	return result
+    if l == 0 {
+    	return result
+    }
 }
