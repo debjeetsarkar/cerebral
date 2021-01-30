@@ -16,6 +16,9 @@ Output: 5
 Explanation: The length of longest continuous increasing subsequence is 1, and there are 5 subsequences' length is 1, so output 5.
 **/
 
+package main
+
+import "fmt"
 
 func max(a, b int) int {
     if a > b {
@@ -57,7 +60,7 @@ func findNumberOfLIS(nums []int) int {
 
         lis = max(lis, dp[i])
     }
-
+    
     for i := 0; i < l; i ++ {
         if dp[i] == lis {
             ans += count[i]
@@ -65,4 +68,8 @@ func findNumberOfLIS(nums []int) int {
     }
 
     return  ans
+}
+
+func main() {
+    fmt.Println(findNumberOfLIS([]int{1,3,5,4,7}))
 }

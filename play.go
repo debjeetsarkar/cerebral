@@ -61,6 +61,22 @@ func main() {
 		fmt.Println(rangearray[i][1])
 	}
 
+
+
+	// Scanner code
+	var n int
+  	var a int
+  	var b int
+  	fmt.Scan(&n)
+
+  	for i := 0; i < n; i++ {
+    	var sum int
+    	fmt.Scan(&a,&b)
+    	sum = a+b
+    	fmt.Println(uint(sum))
+  	}
+
+
 	// fmt.Println(max(9,10))
 
 
